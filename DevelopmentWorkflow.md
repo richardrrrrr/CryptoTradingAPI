@@ -17,36 +17,55 @@ _Last updated: 2025-10-27_
 ## 🧱 2. System Overview 系統架構總覽
 
 CryptoTrading/
-├── CryptoTrading.Core/             # 🔥 核心邏輯：策略、回測、績效
+├── CryptoTrading.Core/                     # 🔥 核心邏輯（純商業邏輯，不依賴外部）
 │   ├── Backtest/
-│   │   ├── BacktestEngine.cs
-│   │   ├── StrategyBase.cs
-│   │   ├── MovingAverageStrategy.cs
-│   │   └── PerformanceAnalyzer.cs
+│   │   ├── BacktestEngine.cs              # 控制整個回測流程
+│   │   ├── StrategyBase.cs                # 所有策略的基底類別
+│   │   ├── MovingAverageStrategy.cs       # 範例策略（均線策略）
+│   │   └── PerformanceAnalyzer.cs         # 分析報酬、夏普值、回撤等績效
 │   │
 │   ├── Models/
-│   │   ├── Candle.cs
-│   │   ├── TradeRecord.cs
-│   │   └── BacktestResult.cs
+│   │   ├── Candle.cs                      # 單根 K 線資料結構
+│   │   ├── TradeRecord.cs                 # 單筆交易記錄
+│   │   └── BacktestResult.cs              # 回測結果彙總
 │   │
 │   ├── Utils/
-│   │   ├── PerformanceTimer.cs
-│   │   └── MathHelper.cs
+│   │   ├── PerformanceTimer.cs            # 測量執行時間工具
+│   │   └── MathHelper.cs                  # 數學與統計輔助函式
 │
-├── CryptoTrading.Infrastructure/   # 🌐 外部資源（API、DB、Cache）
+├── CryptoTrading.Infrastructure/          # 🌐 外部資源（API、DB、Cache、Logging）
 │   ├── Binance/
-│   │   ├── BinanceApiClient.cs     # 負責呼叫 Binance API
-│   │   ├── BinanceEndpoints.cs     # 封裝所有 URL
-│   │   └── BinanceDataMapper.cs    # 將 JSON 轉成 Candle 模型
-│   └── Http/
-│       └── HttpHelper.cs           # 包裝 HttpClient 請求
+│   │   ├── BinanceApiClient.cs            # 呼叫 Binance API
+│   │   ├── BinanceEndpoints.cs            # 統一管理 URL
+│   │   └── BinanceDataMapper.cs           # JSON 轉成 Candle 模型
+│   │
+│   ├── Http/
+│   │   └── HttpHelper.cs                  # 包裝 HttpClient 請求（含錯誤/重試/Log）
+│   │
+│   ├── Logging/
+│   │   ├── NLog.config                    # NLog 設定檔（集中管理 log 輸出）
+│   │   └── LoggingExtensions.cs           # NLog 啟動設定與依賴注入擴充
+│   │
+│   └── Exceptions/
+│       └── ApiException.cs                # 自訂例外（包裝 API 錯誤）
 │
-├── ConsoleRunner/                  # 🧪 回測主程式
-│   └── Program.cs
+├── CryptoTrading.WebApi/                  # 🌐 Web 入口層（提供 API、Middleware）
+│   ├── Middlewares/
+│   │   ├── RequestLoggingMiddleware.cs    # 記錄請求/回應與錯誤
+│   │   └── ErrorHandlingMiddleware.cs     # 捕捉例外，統一回傳 JSON 錯誤格式
+│   │
+│   ├── Controllers/
+│   │   └── BinanceController.cs           # 範例：對外暴露 Binance 查詢 API
+│   │
+│   ├── appsettings.json                   # 環境設定
+│   ├── Program.cs                         # 程式進入點（註冊 DI / Middleware / Serilog）
+│   └── Serilog.config                     # WebAPI 專用 log 設定（引用 Infrastructure/Serilog.config）
 │
-└── Tests/
-    ├── BacktestEngineTests.cs
-    └── BinanceApiTests.cs
+└── Tests/                                 # 🧪 單元測試與整合測試
+    ├── BacktestEngineTests.cs             # 測試策略與回測邏輯
+    ├── BinanceApiTests.cs                 # 測試 API 呼叫與資料轉換
+    └── MiddlewareTests.cs                 # 測試 Middleware 行為與 log 輸出
+
 
 ## 🧠 3.核心模組設計說明
 | 模組                      | 功能                             | 備註              |
