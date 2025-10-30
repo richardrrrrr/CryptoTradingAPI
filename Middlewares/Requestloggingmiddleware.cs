@@ -6,14 +6,14 @@ using System.Diagnostics;
 
 namespace CryptoTrading.API.Middleware
 {
-    partial class Requestloggingmiddleware
+    partial class RequestLoggingMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly SerilogILogger _logger;
-        public Requestloggingmiddleware(RequestDelegate next)
+        public RequestLoggingMiddleware(RequestDelegate next)
         {
             _next = next;
-            _logger = Log.ForContext<Requestloggingmiddleware>();
+            _logger = Log.ForContext<RequestLoggingMiddleware>();
         }
         public async Task InvokeAsync(HttpContext context)
         {
