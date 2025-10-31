@@ -13,12 +13,12 @@ namespace CryptoTrading.API.Middleware
         }
 
         /// <summary>
-    /// 添加 Serilog 請求日誌中介軟體
-    /// </summary>
-    public static IApplicationBuilder UseSerilogRequestLogging(this IApplicationBuilder app)
-    {
-        return app.UseMiddleware<RequestLoggingMiddleware>();
-    }
+        /// 添加 Serilog 請求日誌中介軟體
+        /// </summary>
+        public static IApplicationBuilder UseSerilogRequestLogging(this IApplicationBuilder app)
+        {
+            return app.UseMiddleware<RequestLoggingMiddleware>();
+        }
     }
 
 }
