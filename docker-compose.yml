@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  mssql-cryptotrading:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: cryptotrading-mssql
+    environment:
+      SA_PASSWORD: "YourStrong!Passw0rd"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1440:1433"
+    volumes:
+      - ./_data/mssql-cryptotrading:/var/opt/mssql # ✅ Volume 目錄專屬
+    restart: always
