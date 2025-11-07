@@ -1,4 +1,6 @@
 using CryptoTrading.API.Middleware;
+using CryptoTradingAPI.Data;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
@@ -12,7 +14,10 @@ try
 
     var builder = WebApplication.CreateBuilder(args);
 
-    // (2) 這裡再掛上正式 Logger（會取代前面的 Bootstrap）
+    builder.Services.AddDbContext<CryptoTradingDbContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+    );
+    // 這裡再掛上正式 Logger（會取代前面的 Bootstrap）
     builder.Host.UseSerilog(
         (context, services, configuration) =>
         {
