@@ -485,3 +485,6 @@ $RECYCLE.BIN/
 
 # MSSQL Docker data
 _data/
+
+# Ignore environment-specific appsettings
+appsettings.Development.json
