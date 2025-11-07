@@ -1,5 +1,3 @@
-
-
 namespace CryptoTrading.API.Middleware
 {
     public static class ApiMiddlewareExtensions
@@ -20,5 +18,4 @@ namespace CryptoTrading.API.Middleware
             return app.UseMiddleware<RequestLoggingMiddleware>();
         }
     }
-
 }

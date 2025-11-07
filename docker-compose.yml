@@ -10,7 +10,7 @@ services:
       - "1440:1433"
     volumes:
       - cryptodb_data:/var/opt/mssql
-    restart: always
+    restart: no
 
 volumes:
   cryptodb_data:
