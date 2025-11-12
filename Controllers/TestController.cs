@@ -1,9 +1,9 @@
-using CryptoTradingAPI.Data;
-using CryptoTradingAPI.Models;
+﻿using CryptoTrading.Data;
+using CryptoTrading.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace CryptoTradingAPI.Controllers
+namespace CryptoTrading.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -64,3 +64,5 @@ namespace CryptoTradingAPI.Controllers
         }
     }
 }
+
+

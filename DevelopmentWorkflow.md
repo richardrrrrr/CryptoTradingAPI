@@ -41,9 +41,8 @@ CryptoTrading/
 │
 ├── CryptoTrading.Infrastructure/ # 🌐 外部資源（API、DB、Logging）
 │ ├── Binance/
-│ │ ├── BinanceApiClient.cs # 呼叫 Binance API
-│ │ ├── BinanceEndpoints.cs # 統一管理 URL
-│ │ └── BinanceDataMapper.cs # JSON → Candle 模型
+│ │   ├── BinanceService.cs          # 使用 SDK 呼叫 Binance API
+│ │   └── BinanceOptions.cs          # 放 API 設定
 │ │
 │ ├── Database/
 │ │ ├── CryptoTradingDbContext.cs # EF Core DbContext 或 Dapper Connection
@@ -60,7 +59,7 @@ CryptoTrading/
 │ │ └── HttpHelper.cs # 包裝 HttpClient 請求（含錯誤/重試/Log）
 │ │
 │ ├── Logging/
-│ │ ├── NLog.config # NLog 設定
+│ │ ├── NLog.config # SeriLog 設定
 │ │ └── LoggingExtensions.cs # DI 擴充
 │ │
 │ └── Exceptions/
@@ -90,8 +89,7 @@ CryptoTrading/
 
 | 模組                    | 功能                                     | 備註               |
 | ----------------------- | ---------------------------------------- | ------------------ |
-| **BinanceApiClient**    | 呼叫 Binance REST API，拉取歷史 K 線資料 | 使用 `HttpClient`  |
-| **BinanceDataMapper**   | 將 JSON array 轉成 `List<Candle>`        | 封裝資料轉換邏輯   |
+| **BinanceService**    | 呼叫 Binance REST API，拉取歷史 K 線資料 | 使用 `HttpClient`  |
 | **BacktestEngine**      | 控制整個回測流程                         | 可注入策略         |
 | **StrategyBase**        | 定義策略介面（`GenerateSignal`）         | 可換策略           |
 | **PerformanceAnalyzer** | 計算回測績效                             | 報酬率、最大回撤等 |

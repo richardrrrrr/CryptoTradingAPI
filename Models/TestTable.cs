@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CryptoTradingAPI.Models;
+namespace CryptoTrading.Models;
 
 public partial class TestTable
 {
@@ -11,3 +11,5 @@ public partial class TestTable
 
     public DateTime? CreatedAt { get; set; }
 }
+
+

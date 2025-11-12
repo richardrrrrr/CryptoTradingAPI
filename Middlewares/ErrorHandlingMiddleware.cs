@@ -1,4 +1,4 @@
-using System.Net;
+﻿using System.Net;
 using System.Text;
 using System.Text.Json;
 
@@ -69,3 +69,4 @@ namespace CryptoTrading.API.Middleware
         public DateTime Timestamp { get; set; }
     }
 }
+

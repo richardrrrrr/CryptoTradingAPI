@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using CryptoTradingAPI.Models;
+using CryptoTrading.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CryptoTradingAPI.Data;
+namespace CryptoTrading.Data;
 
 public partial class CryptoTradingDbContext : DbContext
 {
@@ -31,3 +31,5 @@ public partial class CryptoTradingDbContext : DbContext
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }
+
+

@@ -1,5 +1,5 @@
 using CryptoTrading.API.Middleware;
-using CryptoTradingAPI.Data;
+using CryptoTrading.Data;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
