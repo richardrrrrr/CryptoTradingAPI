@@ -1,5 +1,6 @@
 using CryptoTrading.API.Middleware;
 using CryptoTrading.Data;
+using CryptoTrading.Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -13,6 +14,8 @@ try
     Log.Information("🚀 Starting application setup...");
 
     var builder = WebApplication.CreateBuilder(args);
+
+    builder.Configuration.AddUserSecrets<Program>();
 
     builder.Services.AddDbContext<CryptoTradingDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
@@ -31,6 +34,8 @@ try
                 .WriteTo.File("logs/runtime-.txt", rollingInterval: RollingInterval.Day);
         }
     );
+
+    builder.Services.AddInfrastructureServices(builder.Configuration);
 
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();

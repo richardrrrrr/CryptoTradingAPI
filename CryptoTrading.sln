@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CBAC5B66-0105-4E95-B7D4-DCC0C8C85281}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoTrading.Infrastructure", "src\CryptoTrading.Infrastructure\CryptoTrading.Infrastructure.csproj", "{6B42FBA3-F36F-4CB8-8C4A-E2C5A0EB6A1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoTrading.API", "src\CryptoTrading.API\CryptoTrading.API.csproj", "{F73D1493-AC3F-4B2E-B6CA-246D2F11B7BA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6B42FBA3-F36F-4CB8-8C4A-E2C5A0EB6A1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B42FBA3-F36F-4CB8-8C4A-E2C5A0EB6A1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B42FBA3-F36F-4CB8-8C4A-E2C5A0EB6A1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B42FBA3-F36F-4CB8-8C4A-E2C5A0EB6A1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F73D1493-AC3F-4B2E-B6CA-246D2F11B7BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F73D1493-AC3F-4B2E-B6CA-246D2F11B7BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F73D1493-AC3F-4B2E-B6CA-246D2F11B7BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F73D1493-AC3F-4B2E-B6CA-246D2F11B7BA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6B42FBA3-F36F-4CB8-8C4A-E2C5A0EB6A1D} = {CBAC5B66-0105-4E95-B7D4-DCC0C8C85281}
+		{F73D1493-AC3F-4B2E-B6CA-246D2F11B7BA} = {CBAC5B66-0105-4E95-B7D4-DCC0C8C85281}
+	EndGlobalSection
+EndGlobal
