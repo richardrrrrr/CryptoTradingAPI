@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoTrading.Infrastructur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoTrading.API", "src\CryptoTrading.API\CryptoTrading.API.csproj", "{F73D1493-AC3F-4B2E-B6CA-246D2F11B7BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoTrading.Core", "src\CryptoTrading.Core\CryptoTrading.Core.csproj", "{C3E19A89-B667-481C-A9E2-BEEA02875B6E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,9 +28,14 @@ Global
 		{F73D1493-AC3F-4B2E-B6CA-246D2F11B7BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F73D1493-AC3F-4B2E-B6CA-246D2F11B7BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F73D1493-AC3F-4B2E-B6CA-246D2F11B7BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3E19A89-B667-481C-A9E2-BEEA02875B6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3E19A89-B667-481C-A9E2-BEEA02875B6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3E19A89-B667-481C-A9E2-BEEA02875B6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3E19A89-B667-481C-A9E2-BEEA02875B6E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6B42FBA3-F36F-4CB8-8C4A-E2C5A0EB6A1D} = {CBAC5B66-0105-4E95-B7D4-DCC0C8C85281}
 		{F73D1493-AC3F-4B2E-B6CA-246D2F11B7BA} = {CBAC5B66-0105-4E95-B7D4-DCC0C8C85281}
+		{C3E19A89-B667-481C-A9E2-BEEA02875B6E} = {CBAC5B66-0105-4E95-B7D4-DCC0C8C85281}
 	EndGlobalSection
 EndGlobal

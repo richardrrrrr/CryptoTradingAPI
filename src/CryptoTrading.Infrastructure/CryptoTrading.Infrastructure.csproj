@@ -8,4 +8,7 @@
     <PackageReference Include="Binance.Net" Version="11.11.0" />
     <PackageReference Include="CryptoExchange.Net" Version="9.13.0" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CryptoTrading.Core\CryptoTrading.Core.csproj" />
+  </ItemGroup>
 </Project>

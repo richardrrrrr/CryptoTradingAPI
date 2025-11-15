@@ -3,6 +3,7 @@ using Bn = Binance.Net;
 using Binance.Net.Clients;
 using CryptoExchange.Net.Authentication;
 using CryptoTrading.Infrastructure.Binance;
+using CryptoTrading.Core.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -97,7 +98,7 @@ namespace CryptoTrading.Infrastructure.Extensions
             });
 
             // ✅ 註冊自定義 BinanceService
-            services.AddScoped<BinanceService>();
+            services.AddScoped<IBinanceService,BinanceService>();
         }
     }
 }

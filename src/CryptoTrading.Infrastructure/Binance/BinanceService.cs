@@ -5,11 +5,12 @@ using Binance.Net.Objects;
 using Binance.Net.Objects.Options;
 using CryptoExchange.Net.Authentication;
 using CryptoTrading.Infrastructure.Binance;
+using CryptoTrading.Core.Interfaces;
 using Microsoft.Extensions.Options;
 
 namespace CryptoTrading.Infrastructure.Binance
 {
-    public class BinanceService
+    public class BinanceService: IBinanceService
     {
         private readonly BinanceRestClient _restClient;
 

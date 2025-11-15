@@ -1,4 +1,5 @@
 using CryptoTrading.Infrastructure.Binance;
+using CryptoTrading.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CryptoTrading.API.Controllers
@@ -7,8 +8,8 @@ namespace CryptoTrading.API.Controllers
     [Route("api/[controller]")]
     public class BinanceController : ControllerBase
     {
-        private readonly BinanceService _binanceService;
-        public BinanceController(BinanceService binanceService)
+        private readonly IBinanceService _binanceService;
+        public BinanceController(IBinanceService binanceService)
         {
             _binanceService = binanceService;
         }
