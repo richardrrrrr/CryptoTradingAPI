@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using CryptoTrading.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace CryptoTrading.API.Data;
+namespace CryptoTrading.Infrastructure.Data;
 
 public partial class CryptoTradingDbContext : DbContext
 {
