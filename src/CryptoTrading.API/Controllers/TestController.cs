@@ -1,5 +1,5 @@
-﻿using CryptoTrading.Data;
-using CryptoTrading.Models;
+﻿using CryptoTrading.Core.Entities;
+using CryptoTrading.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -64,5 +64,3 @@ namespace CryptoTrading.Controllers
         }
     }
 }
-
-

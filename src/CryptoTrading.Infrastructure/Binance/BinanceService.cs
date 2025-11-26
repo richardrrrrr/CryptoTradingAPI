@@ -4,13 +4,14 @@ using Binance.Net.Enums;
 using Binance.Net.Objects;
 using Binance.Net.Objects.Options;
 using CryptoExchange.Net.Authentication;
-using CryptoTrading.Infrastructure.Binance;
 using CryptoTrading.Core.Interfaces;
+using CryptoTrading.Core.Models;
+using CryptoTrading.Infrastructure.Binance;
 using Microsoft.Extensions.Options;
 
 namespace CryptoTrading.Infrastructure.Binance
 {
-    public class BinanceService: IBinanceService
+    public class BinanceService : IBinanceService
     {
         private readonly BinanceRestClient _restClient;
 
@@ -28,6 +29,50 @@ namespace CryptoTrading.Infrastructure.Binance
 
             Console.WriteLine($"Error: {result.Error?.Message}");
             return null;
+        }
+
+        public async Task<IReadOnlyList<Kline>> GetKlinesAsync(KlineRequest request)
+        {
+            var interval = ToBinanceInterval(request.Interval);
+
+            var result = await _restClient.SpotApi.ExchangeData.GetKlinesAsync(
+                request.Symbol,
+                interval,
+                startTime: request.StartTime,
+                endTime: request.EndTime
+            );
+
+            if (!result.Success)
+                throw new Exception(result.Error?.Message);
+
+            return result
+                .Data.Select(x => new Kline
+                {
+                    Symbol = request.Symbol,
+                    Interval = request.Interval,
+                    OpenTime = x.OpenTime,
+                    CloseTime = x.CloseTime,
+                    OpenPrice = x.OpenPrice,
+                    HighPrice = x.HighPrice,
+                    LowPrice = x.LowPrice,
+                    ClosePrice = x.ClosePrice,
+                    Volume = x.Volume,
+                    Trades = x.TradeCount,
+                })
+                .ToList();
+        }
+
+        private KlineInterval ToBinanceInterval(KlineIntervalValue intervalValue)
+        {
+            return intervalValue.Code switch
+            {
+                "1m" => KlineInterval.OneMinute,
+                "5m" => KlineInterval.FiveMinutes,
+                "15m" => KlineInterval.FifteenMinutes,
+                "1h" => KlineInterval.OneHour,
+                "1d" => KlineInterval.OneDay,
+                _ => throw new ArgumentException($"Unsupported interval: {intervalValue.Code}"),
+            };
         }
     }
 }

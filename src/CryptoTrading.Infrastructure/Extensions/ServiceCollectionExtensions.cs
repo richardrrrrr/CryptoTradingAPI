@@ -1,11 +1,13 @@
 using System;
-using Bn = Binance.Net;
 using Binance.Net.Clients;
 using CryptoExchange.Net.Authentication;
-using CryptoTrading.Infrastructure.Binance;
+using CryptoTrading.API.Services;
 using CryptoTrading.Core.Interfaces;
+using CryptoTrading.Infrastructure.Binance;
+using CryptoTrading.Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Bn = Binance.Net;
 
 namespace CryptoTrading.Infrastructure.Extensions
 {
@@ -70,16 +72,20 @@ namespace CryptoTrading.Infrastructure.Extensions
         /// </summary>
         /// <param name="services">IServiceCollection</param>
         /// <param name="configuration">應用設定</param>
-     public static void AddInfrastructureServices(
+        public static void AddInfrastructureServices(
             this IServiceCollection services,
             IConfiguration configuration
         )
         {
-            // 綁定 BinanceOptions
-            var binanceOptions = new BinanceOptions();
-            configuration.GetSection("BinanceOptions").Bind(binanceOptions);
-            services.AddSingleton(binanceOptions);
+            services
+                .AddOptions<BinanceOptions>()
+                .Bind(configuration.GetSection("BinanceOptions"))
+                .ValidateDataAnnotations()
+                .ValidateOnStart();
 
+            services.AddSingleton(sp =>
+                sp.GetRequiredService<Microsoft.Extensions.Options.IOptions<BinanceOptions>>().Value
+            );
             // ✅ 手動註冊 BinanceRestClient
             services.AddSingleton<BinanceRestClient>(sp =>
             {
@@ -98,7 +104,17 @@ namespace CryptoTrading.Infrastructure.Extensions
             });
 
             // ✅ 註冊自定義 BinanceService
-            services.AddScoped<IBinanceService,BinanceService>();
+            services.AddScoped<IBinanceService, BinanceService>();
+        }
+
+        public static void AddCoreServices(this IServiceCollection services)
+        {
+            services.AddScoped<IBinanceDataApplicationService, BinanceDataApplicationService>();
+        }
+
+        public static void AddRepositories(this IServiceCollection services)
+        {
+            services.AddScoped<IBinanceRepository, BinanceRepository>();
         }
     }
 }

@@ -1,0 +1,22 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "CryptoTrading.API (Launch)",
+      "type": "coreclr",
+      "request": "launch",
+      // "preLaunchTask": "build",
+      "program": "${workspaceFolder}/src/CryptoTrading.API/bin/Debug/net8.0/CryptoTrading.API.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/src/CryptoTrading.API",
+      "stopAtEntry": false,
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+      }
+    }
+  ]
+}

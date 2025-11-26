@@ -1,5 +1,5 @@
 using CryptoTrading.API.Middleware;
-using CryptoTrading.Data;
+using CryptoTrading.Infrastructure.Data;
 using CryptoTrading.Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -36,6 +36,8 @@ try
     );
 
     builder.Services.AddInfrastructureServices(builder.Configuration);
+    builder.Services.AddCoreServices();
+    builder.Services.AddRepositories();
 
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
