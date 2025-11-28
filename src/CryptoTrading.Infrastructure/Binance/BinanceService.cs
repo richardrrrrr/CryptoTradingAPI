@@ -34,7 +34,7 @@ namespace CryptoTrading.Infrastructure.Binance
         public async Task<IReadOnlyList<Kline>> GetKlinesAsync(KlineRequest request)
         {
             var interval = ToBinanceInterval(request.Interval);
-    
+
             var result = await _restClient.SpotApi.ExchangeData.GetKlinesAsync(
                 request.Symbol,
                 interval,

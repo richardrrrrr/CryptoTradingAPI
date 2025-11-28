@@ -1,4 +1,9 @@
-﻿services:
+﻿version: "3.9"
+
+services:
+  # =========================
+  # SQL Server for CryptoTrading
+  # =========================
   mssql-cryptotrading:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: cryptotrading-mssql
@@ -12,7 +17,38 @@
       - cryptodb_data:/var/opt/mssql
     restart: no
 
+  # =========================
+  # Elasticsearch (單節點)
+  # =========================
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.15.0 # 版本號可以視需要調整
+    container_name: cryptotrading-es
+    environment:
+      - discovery.type=single-node          # 單機開發一定要加
+      - xpack.security.enabled=false        # 先關閉安全機制（開發用）
+      - xpack.security.transport.ssl.enabled=false
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g          # JVM 記憶體限制（依你電腦調整）
+    ports:
+      - "9200:9200"                         # REST API
+      - "9300:9300"                         # Cluster 通訊（單機可有可無）
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+    restart: unless-stopped
+
+  # =========================
+  # Kibana（連到上面的 Elasticsearch）
+  # =========================
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.15.0
+    container_name: cryptotrading-kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - "5601:5601"                         # Kibana 網頁 UI
+    depends_on:
+      - elasticsearch
+    restart: unless-stopped
+
 volumes:
   cryptodb_data:
-
-
+  es_data:
