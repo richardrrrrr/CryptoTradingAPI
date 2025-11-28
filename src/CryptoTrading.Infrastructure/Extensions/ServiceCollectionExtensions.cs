@@ -97,8 +97,12 @@ namespace CryptoTrading.Infrastructure.Extensions
                     options.ApiCredentials = creds;
                     options.Environment = opt.UseTestnet
                         ? Bn.BinanceEnvironment.Testnet
-                        : Bn.BinanceEnvironment.Testnet;
+                        : Bn.BinanceEnvironment.Live;
                 });
+
+                Console.WriteLine(
+                    $"[Binance] Environment: {opt.Environment?.Name} ({(opt.UseTestnet ? "TESTNET" : "LIVE")})"
+                );
 
                 return client;
             });

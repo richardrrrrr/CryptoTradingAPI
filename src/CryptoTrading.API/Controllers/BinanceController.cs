@@ -35,7 +35,7 @@ namespace CryptoTrading.API.Controllers
         [HttpGet("klines/sync")]
         public async Task<IActionResult> SyncKlines([FromQuery] GetKlinesQuery query)
         {
-            System.Diagnostics.Debugger.Break();
+            
             var request = new KlineRequest
             {
                 Symbol = query.Symbol,

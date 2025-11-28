@@ -37,7 +37,7 @@ END
         new
         {
             k.Symbol,
-            k.Interval,
+            Interval = k.Interval.ToString(),
             k.OpenTime,
             k.CloseTime,
             k.OpenPrice,
