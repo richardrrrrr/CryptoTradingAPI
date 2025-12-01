@@ -9,6 +9,7 @@
     <PackageReference Include="CryptoExchange.Net" Version="9.13.0" />
     <PackageReference Include="Dapper" Version="2.1.66" />
     <PackageReference Include="EFCore.BulkExtensions" Version="8.*" />
+    <PackageReference Include="Elastic.Clients.Elasticsearch" Version="8.15.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.*" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.*">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

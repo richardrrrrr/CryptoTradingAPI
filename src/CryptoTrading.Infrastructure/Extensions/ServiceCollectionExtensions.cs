@@ -4,9 +4,13 @@ using CryptoExchange.Net.Authentication;
 using CryptoTrading.API.Services;
 using CryptoTrading.Core.Interfaces;
 using CryptoTrading.Infrastructure.Binance;
+using CryptoTrading.Infrastructure.ES;
 using CryptoTrading.Infrastructure.Repositories;
+using Elastic.Clients.Elasticsearch;
+using Elastic.Transport.Products.Elasticsearch;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Bn = Binance.Net;
 
 namespace CryptoTrading.Infrastructure.Extensions
@@ -100,15 +104,28 @@ namespace CryptoTrading.Infrastructure.Extensions
                         : Bn.BinanceEnvironment.Live;
                 });
 
-                Console.WriteLine(
-                    $"[Binance] Environment: {opt.Environment?.Name} ({(opt.UseTestnet ? "TESTNET" : "LIVE")})"
-                );
-
                 return client;
             });
+            services
+                .AddOptions<ElasticsearchOptions>()
+                .Bind(configuration.GetSection("Elasticsearch"))
+                .ValidateDataAnnotations()
+                .ValidateOnStart();
 
-            // ✅ 註冊自定義 BinanceService
+            // 2. 用 IOptions 建立 ElasticsearchClient
+            services.AddSingleton<ElasticsearchClient>(sp =>
+            {
+                var opt = sp.GetRequiredService<IOptions<ElasticsearchOptions>>().Value;
+
+                var settings = new ElasticsearchClientSettings(new Uri(opt.Url)).DefaultIndex(
+                    opt.DefaultIndex
+                );
+
+                return new ElasticsearchClient(settings);
+            });
+
             services.AddScoped<IBinanceService, BinanceService>();
+            services.AddScoped<IEslaticsearchService, EslaticsearchService>();
         }
 
         public static void AddCoreServices(this IServiceCollection services)
