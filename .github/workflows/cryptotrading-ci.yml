@@ -1,0 +1,62 @@
+name: CryptoTrading CI
+
+on:
+  push:
+    branches: [ main ]          # push 到 main（包含 merge PR）時觸發
+  pull_request:
+    branches: [ main ]          # 對 main 開 PR 也會觸發（只 build，不 push image）
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore
+        run: dotnet restore CryptoTrading.sln
+
+      - name: Build
+        run: dotnet build CryptoTrading.sln --configuration Release --no-restore
+
+      # 之後如果你有 test 專案，可以加這個步驟（現在先註解）
+      # - name: Test
+      #   run: dotnet test CryptoTrading.sln --configuration Release --no-build
+
+  docker-build-and-push:
+    needs: build
+    runs-on: ubuntu-latest
+
+    # 只有「push 到 main」才會執行這個 job（PR 不會 push image）
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    permissions:
+      contents: read
+      packages: write   # 用 GITHUB_TOKEN push 到 GHCR 需要這個權限
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/cryptotrading-api:latest
+            ghcr.io/${{ github.repository_owner }}/cryptotrading-api:${{ github.sha }}
